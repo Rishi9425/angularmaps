@@ -1,0 +1,107 @@
+
+  <div class="app-container" [class.fullscreen-mode]="isFullScreen">
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <h2>🗺️ Maps Explorer</h2>
+      </div>
+      <div class="navbar-actions">
+        <button class="fullscreen-btn" (click)="toggleFullScreen()" [title]="isFullScreen ? 'Exit Fullscreen' : 'Enter Fullscreen'">
+          <span>{{isFullScreen ? '⤋' : '⤢'}}</span>
+          {{isFullScreen ? 'Exit Fullscreen' : 'Fullscreen'}}
+        </button>
+        <button class="print-btn" (click)="printLocationInfo()" title="Print Location Info">
+          <span>🖨️</span>
+          Print
+        </button>
+      </div>
+    </nav>
+
+    <div class="map-container">
+      <div class="map-wrapper">
+        <google-map 
+          height="100%" 
+          width="100%"
+          [center]="center"
+          [zoom]="zoom"
+          [options]="options"
+          (mapClick)="moveMap($event)"
+          (mapMouseover)="move($event)">
+          
+          <!-- Marker for clicked location -->
+          <map-marker 
+            *ngIf="markerPosition"
+            [position]="markerPosition"
+            [options]="markerOptions">
+          </map-marker>
+        </google-map>
+        
+        <!-- Info Card positioned like Google Maps -->
+        <div class="info-card" *ngIf="showInfoCard">
+          <div class="card-header">
+            <h3>📍 Location Details</h3>
+            <button class="close-btn" (click)="closeInfoCard()" title="Close">×</button>
+          </div>
+          
+          <div class="card-content">
+            <div class="location-info">
+              <div class="info-item">
+                <span class="icon">🏙️</span>
+                <div class="info-text">
+                  <label>City</label>
+                  <span>{{ locationInfo?.city || 'Loading...' }}</span>
+                </div>
+              </div>
+              
+              <div class="info-item">
+                <span class="icon">🌍</span>
+                <div class="info-text">
+                  <label>Country</label>
+                  <span>{{ locationInfo?.country || 'Loading...' }}</span>
+                </div>
+              </div>
+              
+              <div class="info-item">
+                <span class="icon">🗺️</span>
+                <div class="info-text">
+                  <label>State/Region</label>
+                  <span>{{ locationInfo?.state || 'Loading...' }}</span>
+                </div>
+              </div>
+              
+              <div class="info-item">
+                <span class="icon">📐</span>
+                <div class="info-text">
+                  <label>Latitude</label>
+                  <span>{{ display?.lat?.toFixed(6) || '34.0522' }}</span>
+                </div>
+              </div>
+              
+              <div class="info-item">
+                <span class="icon">📏</span>
+                <div class="info-text">
+                  <label>Longitude</label>
+                  <span>{{ display?.lng?.toFixed(6) || '-118.2437' }}</span>
+                </div>
+              </div>
+              
+              <div class="info-item">
+                <span class="icon">📧</span>
+                <div class="info-text">
+                  <label>Full Address</label>
+                  <span>{{ locationInfo?.fullAddress || 'Loading...' }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Hover coordinates display -->
+        <div class="hover-coords" *ngIf="display && !isFullScreen">
+          Lat: {{ display.lat?.toFixed(6) }}, Lng: {{ display.lng?.toFixed(6) }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  

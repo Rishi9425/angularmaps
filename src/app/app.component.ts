@@ -1,11 +1,27 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { GoogleMapsComponent } from './google-maps/google-maps.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  standalone: true,
+  imports: [GoogleMapsComponent],
+  template: `
+    <div class="app-container">
+      <h1>Google Maps Integration</h1>
+      <app-google-maps></app-google-maps>
+    </div>
+  `,
+  styles: [`
+    .app-container {
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  `]
 })
 export class AppComponent {
   title = 'angularmaps';
