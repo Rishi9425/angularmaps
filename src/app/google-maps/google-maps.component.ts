@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GoogleMap, MapMarker } from "@angular/google-maps";
+import { GoogleMap, MapMarker} from "@angular/google-maps";
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -39,6 +39,7 @@ export class GoogleMapsComponent implements OnInit {
   markerPosition: google.maps.LatLngLiteral | undefined = undefined;
   showInfoCard = false;
   isFullScreen = false;
+  infoCardPosition = { x: 0, y: 0 };
   
   center: google.maps.LatLngLiteral = {lat: 34.0522, lng: -118.2437};
   zoom = 10;
@@ -78,6 +79,7 @@ export class GoogleMapsComponent implements OnInit {
       this.display = event.latLng.toJSON();
       this.getCityInfo(event.latLng.toJSON());
       this.showInfoCard = true;
+      this.updateInfoCardPosition(event);
     }
   }
 
@@ -98,6 +100,30 @@ export class GoogleMapsComponent implements OnInit {
       document.documentElement.requestFullscreen();
     } else {
       document.exitFullscreen();
+    }
+  }
+
+  updateInfoCardPosition(event: google.maps.MapMouseEvent) {
+    const mapDiv = document.querySelector('google-map') as HTMLElement;
+    if (mapDiv && event.domEvent) {
+      const rect = mapDiv.getBoundingClientRect();
+      let x = 0;
+      let y = 0;
+
+      if ('clientX' in event.domEvent && 'clientY' in event.domEvent) {
+        // MouseEvent or PointerEvent
+        x = (event.domEvent as MouseEvent | PointerEvent).clientX - rect.left;
+        y = (event.domEvent as MouseEvent | PointerEvent).clientY - rect.top;
+      } else if ('touches' in event.domEvent && (event.domEvent as TouchEvent).touches.length > 0) {
+        // TouchEvent
+        x = (event.domEvent as TouchEvent).touches[0].clientX - rect.left;
+        y = (event.domEvent as TouchEvent).touches[0].clientY - rect.top;
+      }
+
+      this.infoCardPosition = {
+        x: x + 20, // Offset from cursor
+        y: y - 20
+      };
     }
   }
 

@@ -7,7 +7,6 @@ import { GoogleMapsComponent } from './google-maps/google-maps.component';
   imports: [GoogleMapsComponent],
   template: `
     <div class="app-container">
-      <h1>Google Maps Integration</h1>
       <app-google-maps></app-google-maps>
     </div>
   `,
