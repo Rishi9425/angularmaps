@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { GoogleMap, MapMarker} from "@angular/google-maps";
+import { GoogleMap, MapMarker, MapInfoWindow } from "@angular/google-maps";
 import { CommonModule } from '@angular/common';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { PanelModule } from 'primeng/panel';
 
 @Component({
   selector: 'app-google-maps',
   standalone: true,
-  imports: [GoogleMap, CommonModule, MapMarker],
+  imports: [GoogleMap, CommonModule, MapMarker, MapInfoWindow, CardModule, ButtonModule, PanelModule],
   templateUrl: './google-maps.component.html',
   styleUrls: ['./google-maps.component.css']
 })
@@ -56,7 +59,6 @@ export class GoogleMapsComponent implements OnInit {
     streetViewControl: true,
     rotateControl: true,
     gestureHandling: 'auto',
-    // Fix for multiple maps issue
     restriction: {
       latLngBounds: {
         north: 85,
@@ -103,7 +105,7 @@ export class GoogleMapsComponent implements OnInit {
     }
   }
 
-  updateInfoCardPosition(event: google.maps.MapMouseEvent) {
+   updateInfoCardPosition(event: google.maps.MapMouseEvent) {
     const mapDiv = document.querySelector('google-map') as HTMLElement;
     if (mapDiv && event.domEvent) {
       const rect = mapDiv.getBoundingClientRect();
@@ -111,23 +113,20 @@ export class GoogleMapsComponent implements OnInit {
       let y = 0;
 
       if ('clientX' in event.domEvent && 'clientY' in event.domEvent) {
-        // MouseEvent or PointerEvent
         x = (event.domEvent as MouseEvent | PointerEvent).clientX - rect.left;
         y = (event.domEvent as MouseEvent | PointerEvent).clientY - rect.top;
       } else if ('touches' in event.domEvent && (event.domEvent as TouchEvent).touches.length > 0) {
-        // TouchEvent
         x = (event.domEvent as TouchEvent).touches[0].clientX - rect.left;
         y = (event.domEvent as TouchEvent).touches[0].clientY - rect.top;
       }
 
       this.infoCardPosition = {
-        x: x + 20, // Offset from cursor
+        x: x + 20,
         y: y - 20
       };
     }
   }
 
-  // Reverse geocoding to get city information
   getCityInfo(coordinates: google.maps.LatLngLiteral) {
     const geocoder = new google.maps.Geocoder();
     
@@ -141,7 +140,6 @@ export class GoogleMapsComponent implements OnInit {
         let state = '';
         let country = '';
         
-        // Get primary components
         for (let component of addressComponents) {
           const types = component.types;
           
@@ -154,7 +152,6 @@ export class GoogleMapsComponent implements OnInit {
           }
         }
         
-        // Fallback for city if not found
         if (!city) {
           for (let component of addressComponents) {
             const types = component.types;
@@ -169,7 +166,6 @@ export class GoogleMapsComponent implements OnInit {
           }
         }
         
-        // Use formatted address parts if still no city
         if (!city && results[0].formatted_address) {
           const addressParts = results[0].formatted_address.split(',');
           if (addressParts.length > 1) {
@@ -187,7 +183,6 @@ export class GoogleMapsComponent implements OnInit {
         };
         
       } else {
-        // Fallback when geocoding fails
         this.locationInfo = {
           city: 'Location Found',
           lat: coordinates.lat.toFixed(6),
@@ -201,20 +196,29 @@ export class GoogleMapsComponent implements OnInit {
   }
 
   printLocationInfo() {
-    // Ensure the map is fully loaded and rendered
+    // Force the info card to be visible and maintain its current position
+    if (this.markerPosition) {
+      this.showInfoCard = true;
+    }
+    
+    // Set CSS custom properties for the current info card position
+    const root = document.documentElement;
+    root.style.setProperty('--info-card-top', `${this.infoCardPosition.y}px`);
+    root.style.setProperty('--info-card-left', `${this.infoCardPosition.x}px`);
+    
+    // Add print-specific class to body
+    document.body.classList.add('printing');
+    
+    // Wait for any final rendering
     setTimeout(() => {
-      // Add print-specific class to body for better control
-      document.body.classList.add('printing');
+      window.print();
       
-      // Wait a bit more for any final rendering
+      // Remove print class and custom properties after printing
       setTimeout(() => {
-        window.print();
-        
-        // Remove print class after printing
-        setTimeout(() => {
-          document.body.classList.remove('printing');
-        }, 1000);
-      }, 200);
-    }, 300);
+        document.body.classList.remove('printing');
+        root.style.removeProperty('--info-card-top');
+       
+      }, 1000);
+    }, 500);
   }
 }
