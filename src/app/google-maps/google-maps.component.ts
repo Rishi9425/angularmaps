@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GoogleMap, MapMarker, MapInfoWindow } from "@angular/google-maps";
+import { GoogleMap, MapMarker} from "@angular/google-maps";
 import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -8,7 +8,7 @@ import { PanelModule } from 'primeng/panel';
 @Component({
   selector: 'app-google-maps',
   standalone: true,
-  imports: [GoogleMap, CommonModule, MapMarker, MapInfoWindow, CardModule, ButtonModule, PanelModule],
+  imports: [GoogleMap, CommonModule, MapMarker, CardModule, ButtonModule, PanelModule],
   templateUrl: './google-maps.component.html',
   styleUrls: ['./google-maps.component.css']
 })
@@ -105,7 +105,7 @@ export class GoogleMapsComponent implements OnInit {
     }
   }
 
-   updateInfoCardPosition(event: google.maps.MapMouseEvent) {
+  updateInfoCardPosition(event: google.maps.MapMouseEvent) {
     const mapDiv = document.querySelector('google-map') as HTMLElement;
     if (mapDiv && event.domEvent) {
       const rect = mapDiv.getBoundingClientRect();
@@ -120,9 +120,41 @@ export class GoogleMapsComponent implements OnInit {
         y = (event.domEvent as TouchEvent).touches[0].clientY - rect.top;
       }
 
+      // Smart positioning logic
+      const mapWidth = rect.width;
+      const mapHeight = rect.height;
+      const cardWidth = 300; // Approximate card width
+      const cardHeight = 350; // Approximate card height
+      const padding = 20;
+
+      let finalX = x;
+      let finalY = y;
+
+      // Horizontal positioning
+      if (x + cardWidth + padding > mapWidth) {
+        // Not enough space on right, position on left
+        finalX = x - cardWidth - padding;
+      } else {
+        // Enough space on right, position on right
+        finalX = x + padding;
+      }
+
+      // Vertical positioning
+      if (y + cardHeight + padding > mapHeight) {
+        // Not enough space below, position above
+        finalY = y - cardHeight - padding;
+      } else {
+        // Enough space below, position below
+        finalY = y + padding;
+      }
+
+      // Ensure card doesn't go off-screen
+      finalX = Math.max(padding, Math.min(finalX, mapWidth - cardWidth - padding));
+      finalY = Math.max(padding, Math.min(finalY, mapHeight - cardHeight - padding));
+
       this.infoCardPosition = {
-        x: x + 20,
-        y: y - 20
+        x: finalX,
+        y: finalY
       };
     }
   }
@@ -196,29 +228,12 @@ export class GoogleMapsComponent implements OnInit {
   }
 
   printLocationInfo() {
-    // Force the info card to be visible and maintain its current position
-    if (this.markerPosition) {
-      this.showInfoCard = true;
-    }
+    // Ensure the map is fully loaded and rendered
+
     
-    // Set CSS custom properties for the current info card position
-    const root = document.documentElement;
-    root.style.setProperty('--info-card-top', `${this.infoCardPosition.y}px`);
-    root.style.setProperty('--info-card-left', `${this.infoCardPosition.x}px`);
-    
-    // Add print-specific class to body
-    document.body.classList.add('printing');
-    
-    // Wait for any final rendering
-    setTimeout(() => {
-      window.print();
-      
-      // Remove print class and custom properties after printing
-      setTimeout(() => {
-        document.body.classList.remove('printing');
-        root.style.removeProperty('--info-card-top');
-       
-      }, 1000);
-    }, 500);
+        window.print();
+        
+        // Remove print class after printing
+         
   }
 }

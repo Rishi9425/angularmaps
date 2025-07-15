@@ -40,14 +40,6 @@
           *ngIf="markerPosition"
           [position]="markerPosition"
           [options]="markerOptions">
-         <map-info-window #infoWindow>
-           <div class="info-window">
-             <h3>📍 Location Info</h3>
-             <p>Latitude: {{ markerPosition.lat.toFixed(6) }}</p>
-             <p>Longitude: {{ markerPosition.lng.toFixed(6) }}</p>
-             <button (click)="showInfoCard = true">Show Details</button>
-           </div>
-         </map-info-window>
         </map-marker>
       </google-map>
       
@@ -65,7 +57,7 @@
             class="close-btn" 
             (click)="closeInfoCard()"
             aria-label="Close">
-            <i class="pi pi-times"></i>
+            ✕
           </button>
         </div>
         

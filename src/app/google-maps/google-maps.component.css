@@ -1,30 +1,138 @@
-/* Main container styles */
-.app-container {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f5f5f5;
-}
-
-.app-container.fullscreen-mode {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 9999;
+/* Info Card Styles */
+.info-card {
+  position: absolute;
   background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  max-width: 280px;
+  width: 280px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: 1px solid #e0e0e0;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  animation: slideIn 0.3s ease-out;
 }
 
-/* Navbar styles */
-.navbar {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 1rem 2rem;
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: #666;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.close-btn:hover {
+  background: #f5f5f5;
+  color: #333;
+  transform: scale(1.1);
+}
+
+.close-btn:active {
+  transform: scale(0.95);
+}
+
+.location-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.info-item .icon {
+  font-size: 12px;
+  width: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.info-text label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.info-text span {
+  font-size: 12px;
+  color: #333;
+  font-weight: 500;
+  line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Existing styles for other components */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   z-index: 1000;
 }
@@ -38,219 +146,373 @@
 .navbar-actions {
   display: flex;
   gap: 1rem;
-  align-items: center;
 }
 
-/* Custom button styles to ensure visibility */
 .custom-btn {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
   transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  font-size: 0.9rem;
 }
 
 .custom-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-1px);
 }
 
-.custom-btn:active {
-  transform: translateY(0);
-}
-
-.custom-btn i {
-  font-size: 1.1rem;
-}
-
-.custom-btn span {
-  font-weight: 500;
-}
-
-/* Map container styles */
 .map-container {
   flex: 1;
-  display: flex;
   position: relative;
   overflow: hidden;
 }
 
 .map-wrapper {
-  flex: 1;
   position: relative;
-  background: #e0e0e0;
+  height: 100%;
+  width: 100%;
 }
 
-/* Info card styles */
-.info-card {
-  position: absolute;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-  padding: 1.5rem;
-  max-width: 300px;
-  z-index: 1000;
-  border: 1px solid #e0e0e0;
-  backdrop-filter: blur(10px);
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.card-header h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  color: #333;
-  font-weight: 600;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-  color: #666;
-  padding: 0.25rem;
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-
-.close-btn:hover {
-  background: #f0f0f0;
-  color: #333;
-}
-
-.location-info {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.info-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-}
-
-.info-item .icon {
-  font-size: 1.1rem;
-  flex-shrink: 0;
-  margin-top: 0.1rem;
-}
-
-.info-text {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.info-text label {
-  font-size: 0.8rem;
-  color: #666;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.info-text span {
-  color: #333;
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-/* Hover coordinates display */
 .hover-coords {
   position: absolute;
-  bottom: 1rem;
-  left: 1rem;
-  background: rgba(0, 0, 0, 0.8);
+  top: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.8);
   color: white;
-  padding: 0.5rem 1rem;
+  padding: 8px 12px;
   border-radius: 6px;
-  font-size: 0.9rem;
-  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-family: monospace;
   z-index: 500;
-  backdrop-filter: blur(5px);
+  pointer-events: none;
 }
 
-/* Info window styles */
+.fullscreen-mode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background: white;
+}
+
 .info-window {
-  padding: 1rem;
-  max-width: 250px;
+  padding: 10px;
+  max-width: 200px;
 }
 
 .info-window h3 {
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 8px 0;
+  font-size: 14px;
   color: #333;
-  font-size: 1rem;
 }
 
 .info-window p {
-  margin: 0.25rem 0;
+  margin: 4px 0;
+  font-size: 12px;
   color: #666;
-  font-size: 0.9rem;
 }
 
 .info-window button {
-  margin-top: 0.5rem;
+  margin-top: 8px;
+  padding: 6px 12px;
   background: #667eea;
   color: white;
   border: none;
-  padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 12px;
 }
 
 .info-window button:hover {
   background: #5a6fd8;
 }
 
-/* Fullscreen mode adjustments */
-.fullscreen-mode .navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10000;
-}
+/* Print styles - UPDATED FOR CONTINUOUS LAYOUT */
+@media print {
+  /* Hide everything by default */
+  * {
+    visibility: hidden !important;
+  }
+  
+  /* Remove all margins and padding from body and html */
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
 
-.fullscreen-mode .map-container {
-  padding-top: 80px;
+  
+  /* Hide the navbar completely */
+  .navbar {
+    display: none !important;
+    visibility: hidden !important;
+  }
+   @page {
+    margin: 10mm !important;
+    size: A4 landscape !important;
+  }
+  /* Make app container full screen for print */
+    .app-container {
+    visibility: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: calc(297mm - 20mm) !important; /* A4 landscape height minus margins */
+    max-height: calc(297mm - 20mm) !important;
+    position: relative !important;
+    page-break-inside: avoid !important;
+    page-break-after: avoid !important;
+    page-break-before: avoid !important;
+    display: block !important;
+    overflow: hidden !important;
+  }
+  
+  /* Map container takes full page */
+    .map-container {
+    visibility: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: calc(297mm - 20mm) !important; /* A4 landscape height minus margins */
+    max-height: calc(297mm - 20mm) !important;
+    position: relative !important;
+    page-break-inside: avoid !important;
+    page-break-after: avoid !important;
+    page-break-before: avoid !important;
+    display: block !important;
+    overflow: hidden !important;
+  }
+  
+  /* Map wrapper fills entire page */
+    .map-wrapper {
+    visibility: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: calc(297mm - 20mm) !important; /* A4 landscape height minus margins */
+    max-height: calc(297mm - 20mm) !important;
+    position: relative !important;
+    page-break-inside: avoid !important;
+    page-break-after: avoid !important;
+    page-break-before: avoid !important;
+    display: block !important;
+    overflow: hidden !important;
+  }
+  
+  /* Google map takes full page */
+  google-map {
+    visibility: visible !important;
+    width: 100% !important;
+    height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    page-break-inside: avoid !important;
+    display: block !important;
+  }
+  
+    google-map {
+    visibility: visible !important;
+    width: 100% !important;
+    height: calc(297mm - 20mm) !important; /* A4 landscape height minus margins */
+    max-height: calc(297mm - 20mm) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    page-break-inside: avoid !important;
+    page-break-after: avoid !important;
+    page-break-before: avoid !important;
+    display: block !important;
+    overflow: hidden !important;
+  }
+  /* All Google Maps elements should be visible */
+  google-map * {
+    visibility: visible !important;
+  }
+  
+  /* Info card positioning and styling for print */
+  .info-card {
+    visibility: visible !important;
+    position: absolute !important;
+    top: 20px !important;
+    right: 20px !important;
+    background: white !important;
+    border: 2px solid #333 !important;
+    border-radius: 8px !important;
+    padding: 12px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    z-index: 1000 !important;
+    max-width: 280px !important;
+    width: 280px !important;
+    font-size: 11px !important;
+    line-height: 1.3 !important;
+    page-break-inside: avoid !important;
+    display: block !important;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    backdrop-filter: none !important;
+    max-height: calc(297mm - 60px) !important; /* Ensure it fits within page */
+    overflow: hidden !important;
+  }
+  
+  /* Info card content */
+  .info-card * {
+    visibility: visible !important;
+    color: #333 !important;
+  }
+  
+  /* Card header styling */
+  .card-header {
+    visibility: visible !important;
+    margin-bottom: 8px !important;
+    padding-bottom: 6px !important;
+    border-bottom: 1px solid #333 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+  
+  .card-header h3 {
+    visibility: visible !important;
+    color: #000 !important;
+    font-weight: bold !important;
+    font-size: 14px !important;
+    margin: 0 !important;
+  }
+  
+  /* Hide close button in print */
+  .close-btn {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  
+  /* Location info styling */
+  .location-info {
+    visibility: visible !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+  
+  .info-item {
+    visibility: visible !important;
+    margin-bottom: 8px !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    padding: 4px 0 !important;
+  }
+  
+  .info-item .icon {
+    visibility: visible !important;
+    font-size: 14px !important;
+    min-width: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .info-text {
+    visibility: visible !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+  }
+  
+  .info-text label {
+    visibility: visible !important;
+    font-weight: bold !important;
+    color: #333 !important;
+    font-size: 10px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3px !important;
+    margin: 0 !important;
+  }
+  
+  .info-text span {
+    visibility: visible !important;
+    color: #000 !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+  
+  /* Marker should be visible */
+  map-marker {
+    visibility: visible !important;
+  }
+  
+  /* Hide hover coordinates in print */
+  .hover-coords {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  
+  /* Ensure no page breaks and continuous layout */
+  @page {
+    margin: 0;
+    size: A4 landscape;
+  }
+  
+  /* Prevent page breaks within map */
+ .map-container,
+  .map-wrapper,
+  google-map,
+  .info-card {
+    page-break-before: avoid !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  
+  /* Remove the print title that was causing issues */
+  .printing .map-container::before {
+    display: none !important;
+  }
+  
+  /* Ensure fullscreen mode is disabled during print */
+  .fullscreen-mode {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    z-index: auto !important;
+    height: calc(297mm - 20mm) !important;
+    max-height: calc(297mm - 20mm) !important;
+  }
+   body {
+    page-break-inside: avoid !important;
+    page-break-after: avoid !important;
+    page-break-before: avoid !important;
+  }
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
   .navbar {
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 1rem;
   }
   
   .navbar-brand h2 {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
   
   .navbar-actions {
     gap: 0.5rem;
-  }
-  
-  .custom-btn {
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
   }
   
   .custom-btn span {
@@ -259,204 +521,12 @@
   
   .info-card {
     max-width: 250px;
-    padding: 1rem;
+    width: 250px;
+    font-size: 11px;
   }
   
   .hover-coords {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
-  }
-}
-
-/* Print styles */
-@media print {
-  /* Remove all default page margins and headers/footers */
-  @page {
-    margin: 0;
-    size: A4;
-  }
-  
-  * {
-    margin: 0 !important;
-    padding: 0 !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  
-  html, body {
-    height: 100% !important;
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-  }
-  
-  body.printing {
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  
-  .app-container {
-    height: 100vh !important;
-    width: 100vw !important;
-    display: flex !important;
-    flex-direction: column !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    position: relative !important;
-  }
-  
-  /* Hide navbar during print */
-  .navbar {
-    display: none !important;
-  }
-  
-  /* Make map container take full page */
-  .map-container {
-    flex: 1 !important;
-    height: 100vh !important;
-    width: 100vw !important;
-    display: flex !important;
-    position: relative !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  
-  .map-wrapper {
-    flex: 1 !important;
-    position: relative !important;
-    height: 100vh !important;
-    width: 100vw !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  
-  /* Ensure Google Maps prints correctly */
-  google-map {
-    height: 100vh !important;
-    width: 100vw !important;
-    display: block !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  
-  /* Position info card exactly as it appears on screen */
-  .info-card {
-    position: absolute !important;
-    /* Use the same positioning as on screen */
-    top: var(--info-card-top, 50px) !important;
-    left: var(--info-card-left, 50px) !important;
-    background: rgba(255, 255, 255, 0.95) !important;
-    border: 2px solid #333 !important;
-    border-radius: 8px !important;
-    padding: 1rem !important;
-    max-width: 280px !important;
-    z-index: 1000 !important;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3) !important;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
-  }
-  
-  .card-header {
-    border-bottom: 1px solid #ddd !important;
-    margin-bottom: 0.75rem !important;
-    padding-bottom: 0.5rem !important;
-  }
-  
-  .card-header h3 {
-    font-size: 1rem !important;
-    color: #333 !important;
-    margin: 0 !important;
-  }
-  
-  .close-btn {
-    display: none !important;
-  }
-  
-  .location-info {
-    font-size: 0.9rem !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.5rem !important;
-  }
-  
-  .info-item {
-    display: flex !important;
-    align-items: flex-start !important;
-    gap: 0.5rem !important;
-    margin-bottom: 0.5rem !important;
-  }
-  
-  .info-item .icon {
-    font-size: 1rem !important;
-    flex-shrink: 0 !important;
-  }
-  
-  .info-text {
-    flex: 1 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.25rem !important;
-  }
-  
-  .info-text label {
-    font-size: 0.75rem !important;
-    color: #666 !important;
-    font-weight: 600 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-  }
-  
-  .info-text span {
-    color: #333 !important;
-    font-size: 0.85rem !important;
-    line-height: 1.2 !important;
-  }
-  
-  /* Hide hover coordinates during print */
-  .hover-coords {
-    display: none !important;
-  }
-  
-  /* Remove any page numbers or headers */
-  .page-break {
-    page-break-before: always !important;
-  }
-}
-
-/* Print-specific map adjustments */
-@media print {
-  /* Remove Google Maps attribution and controls */
-  .gm-style {
-    font-size: 11px !important;
-  }
-  
-  .gm-style-cc {
-    display: none !important;
-  }
-  
-  .gmnoprint {
-    display: none !important;
-  }
-  
-  .gm-bundled-control {
-    display: none !important;
-  }
-  
-  /* Remove page URL, title, and other browser print elements */
-  @page {
-    margin: 0 !important;
-    size: A4 !important;
-  }
-  
-  /* Hide any potential print headers/footers */
-  .print-header,
-  .print-footer {
-    display: none !important;
-  }
-  
-  /* Ensure no page breaks */
-  * {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
+    font-size: 10px;
+    padding: 6px 8px;
   }
 }
