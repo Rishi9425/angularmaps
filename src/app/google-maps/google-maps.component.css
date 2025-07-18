@@ -1,532 +1,205 @@
-/* Info Card Styles */
-.info-card {
-  position: absolute;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  padding: 16px;
-  max-width: 280px;
-  width: 280px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  border: 1px solid #e0e0e0;
-  z-index: 1000;
-  backdrop-filter: blur(10px);
-  animation: slideIn 0.3s ease-out;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-.card-header h3 {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 600;
-  color: #2c3e50;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  font-size: 16px;
-  font-weight: bold;
-  color: #666;
-  cursor: pointer;
-  padding: 4px;
-  line-height: 1;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-}
-
-.close-btn:hover {
-  background: #f5f5f5;
-  color: #333;
-  transform: scale(1.1);
-}
-
-.close-btn:active {
-  transform: scale(0.95);
-}
-
-.location-info {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.info-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  padding: 4px 0;
-}
-
-.info-item .icon {
-  font-size: 12px;
-  width: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.info-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  flex: 1;
-  min-width: 0;
-}
-
-.info-text label {
-  font-size: 11px;
-  font-weight: 600;
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 0;
-}
-
-.info-text span {
-  font-size: 12px;
-  color: #333;
-  font-weight: 500;
-  line-height: 1.4;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-/* Existing styles for other components */
-.app-container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  z-index: 1000;
-}
-
-.navbar-brand h2 {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.navbar-actions {
-  display: flex;
-  gap: 1rem;
-}
-
-.custom-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 6px;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-}
-
-.custom-btn:hover {
-  background: rgba(255,255,255,0.2);
-  transform: translateY(-1px);
-}
-
 .map-container {
-  flex: 1;
-  position: relative;
-  overflow: hidden;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.map-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.print-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.print-btn:hover {
+  background: #0056b3;
 }
 
 .map-wrapper {
-  position: relative;
-  height: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+google-map {
   width: 100%;
-}
-
-.hover-coords {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: rgba(0,0,0,0.8);
-  color: white;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-family: monospace;
-  z-index: 500;
-  pointer-events: none;
-}
-
-.fullscreen-mode {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 9999;
-  background: white;
+  height: 500px;
 }
 
 .info-window {
-  padding: 10px;
-  max-width: 200px;
+  min-width: 250px;
+  font-family: Arial, sans-serif;
 }
 
-.info-window h3 {
-  margin: 0 0 8px 0;
-  font-size: 14px;
-  color: #333;
-}
-
-.info-window p {
-  margin: 4px 0;
-  font-size: 12px;
-  color: #666;
-}
-
-.info-window button {
-  margin-top: 8px;
-  padding: 6px 12px;
-  background: #667eea;
+.info-header {
+  background: #007bff;
   color: white;
-  border: none;
+  padding: 10px;
+  margin: -8px -8px 10px -8px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.info-row {
+  margin: 8px 0;
+  padding: 5px;
+  background: #f9f9f9;
   border-radius: 4px;
-  cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
 }
 
-.info-window button:hover {
-  background: #5a6fd8;
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-style: italic;
 }
 
-/* Print styles - UPDATED FOR CONTINUOUS LAYOUT */
+.print-info {
+  display: none;
+}
+
+/* Print Styles */
 @media print {
-  /* Hide everything by default */
   * {
-    visibility: hidden !important;
-  }
-  
-  /* Remove all margins and padding from body and html */
-  html, body {
-    margin: 0 !important;
-    padding: 0 !important;
-    height: auto !important;
-    width: 100% !important;
-    overflow: visible !important;
+    visibility: hidden;
   }
 
-  
-  /* Hide the navbar completely */
-  .navbar {
-    display: none !important;
-    visibility: hidden !important;
+  .map-wrapper, .map-wrapper *,
+  .print-info, .print-info * {
+    visibility: visible;
   }
-   @page {
-    margin: 10mm !important;
-    size: A4 landscape !important;
-  }
-  /* Make app container full screen for print */
-    .app-container {
-    visibility: visible !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
-    height: calc(297mm - 20mm) !important; /* A4 landscape height minus margins */
-    max-height: calc(297mm - 20mm) !important;
-    position: relative !important;
-    page-break-inside: avoid !important;
-    page-break-after: avoid !important;
-    page-break-before: avoid !important;
-    display: block !important;
-    overflow: hidden !important;
-  }
-  
-  /* Map container takes full page */
-    .map-container {
-    visibility: visible !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
-    height: calc(297mm - 20mm) !important; /* A4 landscape height minus margins */
-    max-height: calc(297mm - 20mm) !important;
-    position: relative !important;
-    page-break-inside: avoid !important;
-    page-break-after: avoid !important;
-    page-break-before: avoid !important;
-    display: block !important;
-    overflow: hidden !important;
-  }
-  
-  /* Map wrapper fills entire page */
-    .map-wrapper {
-    visibility: visible !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
-    height: calc(297mm - 20mm) !important; /* A4 landscape height minus margins */
-    max-height: calc(297mm - 20mm) !important;
-    position: relative !important;
-    page-break-inside: avoid !important;
-    page-break-after: avoid !important;
-    page-break-before: avoid !important;
-    display: block !important;
-    overflow: hidden !important;
-  }
-  
-  /* Google map takes full page */
-  google-map {
-    visibility: visible !important;
-    width: 100% !important;
-    height: 100vh !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    page-break-inside: avoid !important;
-    display: block !important;
-  }
-  
-    google-map {
-    visibility: visible !important;
-    width: 100% !important;
-    height: calc(297mm - 20mm) !important; /* A4 landscape height minus margins */
-    max-height: calc(297mm - 20mm) !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    page-break-inside: avoid !important;
-    page-break-after: avoid !important;
-    page-break-before: avoid !important;
-    display: block !important;
-    overflow: hidden !important;
-  }
-  /* All Google Maps elements should be visible */
-  google-map * {
-    visibility: visible !important;
-  }
-  
-  /* Info card positioning and styling for print */
-  .info-card {
-    visibility: visible !important;
-    position: absolute !important;
-    top: 20px !important;
-    right: 20px !important;
-    background: white !important;
-    border: 2px solid #333 !important;
-    border-radius: 8px !important;
-    padding: 12px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-    z-index: 1000 !important;
-    max-width: 280px !important;
-    width: 280px !important;
-    font-size: 11px !important;
-    line-height: 1.3 !important;
-    page-break-inside: avoid !important;
-    display: block !important;
-    opacity: 1 !important;
-    transform: none !important;
-    animation: none !important;
-    backdrop-filter: none !important;
-    max-height: calc(297mm - 60px) !important; /* Ensure it fits within page */
-    overflow: hidden !important;
-  }
-  
-  /* Info card content */
-  .info-card * {
-    visibility: visible !important;
-    color: #333 !important;
-  }
-  
-  /* Card header styling */
-  .card-header {
-    visibility: visible !important;
-    margin-bottom: 8px !important;
-    padding-bottom: 6px !important;
-    border-bottom: 1px solid #333 !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-  }
-  
-  .card-header h3 {
-    visibility: visible !important;
-    color: #000 !important;
-    font-weight: bold !important;
-    font-size: 14px !important;
-    margin: 0 !important;
-  }
-  
-  /* Hide close button in print */
-  .close-btn {
-    display: none !important;
-    visibility: hidden !important;
-  }
-  
-  /* Location info styling */
-  .location-info {
-    visibility: visible !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 8px !important;
-  }
-  
-  .info-item {
-    visibility: visible !important;
-    margin-bottom: 8px !important;
-    display: flex !important;
-    align-items: flex-start !important;
-    gap: 8px !important;
-    padding: 4px 0 !important;
-  }
-  
-  .info-item .icon {
-    visibility: visible !important;
-    font-size: 14px !important;
-    min-width: 20px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex-shrink: 0 !important;
-  }
-  
-  .info-text {
-    visibility: visible !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 2px !important;
-    flex: 1 !important;
-    min-width: 0 !important;
-  }
-  
-  .info-text label {
-    visibility: visible !important;
-    font-weight: bold !important;
-    color: #333 !important;
-    font-size: 10px !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.3px !important;
-    margin: 0 !important;
-  }
-  
-  .info-text span {
-    visibility: visible !important;
-    color: #000 !important;
-    font-size: 12px !important;
-    font-weight: 500 !important;
-    line-height: 1.4 !important;
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-  }
-  
-  /* Marker should be visible */
-  map-marker {
-    visibility: visible !important;
-  }
-  
-  /* Hide hover coordinates in print */
-  .hover-coords {
-    display: none !important;
-    visibility: hidden !important;
-  }
-  
-  /* Ensure no page breaks and continuous layout */
-  @page {
+
+  body {
     margin: 0;
-    size: A4 landscape;
+    padding: 0;
   }
-  
-  /* Prevent page breaks within map */
- .map-container,
-  .map-wrapper,
-  google-map,
-  .info-card {
-    page-break-before: avoid !important;
-    page-break-after: avoid !important;
-    page-break-inside: avoid !important;
-  }
-  
-  /* Remove the print title that was causing issues */
-  .printing .map-container::before {
-    display: none !important;
-  }
-  
-  /* Ensure fullscreen mode is disabled during print */
-  .fullscreen-mode {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    z-index: auto !important;
-    height: calc(297mm - 20mm) !important;
-    max-height: calc(297mm - 20mm) !important;
-  }
-   body {
-    page-break-inside: avoid !important;
-    page-break-after: avoid !important;
-    page-break-before: avoid !important;
-  }
-}
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .navbar {
-    padding: 0.5rem 1rem;
+  .map-container {
+    padding: 0;
+    margin: 0;
+    max-width: none;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
-  
-  .navbar-brand h2 {
-    font-size: 1.2rem;
-  }
-  
-  .navbar-actions {
-    gap: 0.5rem;
-  }
-  
-  .custom-btn span {
+
+  .map-header {
     display: none;
   }
-  
-  .info-card {
-    max-width: 250px;
-    width: 250px;
-    font-size: 11px;
+
+  .map-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    border: none;
+    border-radius: 0;
   }
-  
-  .hover-coords {
-    font-size: 10px;
-    padding: 6px 8px;
+
+  google-map {
+    width: 100%;
+    height: 100%;
+  }
+
+  .print-info {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20%;
+    background: white;
+    border-top: 2px solid #333;
+    padding: 15px;
+    font-size: 12px;
+  }
+
+  .print-header {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+  }
+
+  .print-info div {
+    margin: 5px 0;
+  }
+
+  /* Hide map controls */
+  .gmnoprint {
+    display: none !important;
+  }
+
+  /* Hide info window */
+  .gm-style-iw {
+    display: none !important;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .map-container {
+    padding: 10px;
+  }
+
+  .map-header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .print-btn {
+    width: 100%;
+  }
+
+  google-map {
+    height: 400px;
+  }
+
+  .info-window {
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-wrapper {
+    border-radius: 6px;
+  }
+
+  google-map {
+    height: 350px;
+  }
+
+  .info-window {
+    min-width: 180px;
+  }
+
+  .info-row {
+    font-size: 12px;
   }
 }
